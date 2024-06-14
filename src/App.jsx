@@ -29,7 +29,7 @@ function App() {
             </Button>
             <Typography variant="h6">Welcome, {user.name}</Typography>
           </Box>
-          <Comments user={user}/>
+          <Comments user={user} />
         </>
       ) : (
         <Login onLogin={handleLogin} baseUrl={baseUrl} />

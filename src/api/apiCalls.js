@@ -22,3 +22,14 @@ export const fetchComments = async () => {
        }
 };
 
+export const updateCommentLike = async (baseUrl, commentId, comment) => {
+       try {
+              const response = await axios.put(`${baseUrl}/comments/${commentId}`,
+                     { likes: comment.likes, likedBy: comment.likedBy },
+                     { headers: { 'Content-Type': 'application/json' } })
+              return response.data;
+       } catch (error) {
+              throw new Error("Error updating comments likes");
+       }
+};
+

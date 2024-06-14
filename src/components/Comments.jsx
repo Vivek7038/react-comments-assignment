@@ -4,7 +4,8 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ReplyIcon from "@mui/icons-material/Reply";
 import EditIcon from "@mui/icons-material/Edit";
-import { fetchComments } from "../api/apiCalls";
+import { fetchComments, updateCommentLike } from "../api/apiCalls";
+import { baseUrl } from "../api/apiCalls";
 
 const Comments = ({ user }) => {
   const [comments, setComments] = useState([]);
@@ -27,7 +28,30 @@ const Comments = ({ user }) => {
     fetchCommentsData();
   }, []);
 
-  const handleLikeToggle = async (commentId) => {};
+  const handleLikeToggle = async (commentId) => {
+    const updatedComments = [...comments];
+    const commentIndex = updatedComments.findIndex((c) => c.id === commentId);
+
+    if (commentIndex !== -1) {
+      const comment = updatedComments[commentIndex];
+      if (!comment.likedBy.includes(user.id)) {
+        comment.likes++;
+        comment.likedBy.push(user.id);
+        setComments(updatedComments);
+      } else {
+        comment.likes--;
+        comment.likedBy.pop(user.id);
+        setComments(updatedComments);
+      }
+      try {
+        // Make API call to update like of  the comment
+        await updateCommentLike(baseUrl, commentId, comment);
+      } catch (error) {
+        console.error("Error updating comments likes", error);
+        setError("Error updating comment like. Please try again later.");
+      }
+    }
+  };
 
   const handleEdit = (commentId) => {};
 
