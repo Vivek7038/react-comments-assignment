@@ -4,13 +4,21 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import EditIcon from "@mui/icons-material/Edit";
 
-const CommentItem = ({ comment, user, onLikeToggle, onUpdateComment }) => {
+const CommentItem = ({
+  comment = { text: "", likes: 0, likedBy: [] },
+  user = { id: "" },
+  onLikeToggle = () => {},
+  onUpdateComment = () => {},
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newCommentText, setNewCommentText] = useState(comment.text);
   const [updateError, setUpdateError] = useState("");
 
-  const handleEditToggle = () => {
-    setIsEditing(!isEditing);
+  const handleEdit = () => {
+    if (isEditing) {
+      return;
+    }
+    setIsEditing(true);
     setNewCommentText(comment.text);
   };
 
@@ -61,7 +69,7 @@ const CommentItem = ({ comment, user, onLikeToggle, onUpdateComment }) => {
           <ThumbUpOutlinedIcon />
         )}
       </IconButton>
-      <IconButton onClick={handleEditToggle} sx={{ ml: 1 }}>
+      <IconButton onClick={handleEdit} sx={{ ml: 1 }} disabled={isEditing}>
         <EditIcon />
       </IconButton>
     </Box>

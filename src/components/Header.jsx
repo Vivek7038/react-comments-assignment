@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 
-const Header = ({ user, setUser }) => {
+const Header = ({ user = { id: "", name: "Guest" }, setUser }) => {
   return (
     <Box
       display="flex"

@@ -7,7 +7,7 @@ import {
 } from "../api/apiCalls";
 import { baseUrl } from "../api/apiCalls";
 import CommentItem from "./CommentItem";
-const CommentList = ({ user }) => {
+const CommentList = ({ user = { id: "", name: "Guest" } }) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,7 +28,6 @@ const CommentList = ({ user }) => {
 
     fetchCommentsData();
   }, []);
-
 
   // function to like and unlike a comment
   const handleLikeToggle = async (commentId) => {
@@ -53,7 +52,6 @@ const CommentList = ({ user }) => {
       }
     }
   };
-
 
   //function which updated the comment
   const handleUpdateComment = async (commentId, newText) => {
