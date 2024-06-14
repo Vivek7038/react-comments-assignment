@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
 import axios from "axios";
+import { fetchUsers } from "../api/apiCalls";
 
 const Login = ({ onLogin, baseUrl }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
   // to directly login with guest credentials
   const handleGuestLogin = () => {
     // Directly calls handleLogin with guest credentials
@@ -16,8 +18,8 @@ const Login = ({ onLogin, baseUrl }) => {
     const { username, password } = credentials;
 
     try {
-      const response = await axios.get(`${baseUrl}/users`);
-      const users = response.data;
+      const response = await fetchUsers();
+      const users = response;
       const user = users.find(
         (user) => user.username === username && user.password === password
       );
