@@ -33,3 +33,14 @@ export const updateCommentLike = async (baseUrl, commentId, comment) => {
        }
 };
 
+export const updateCommentText = async (baseUrl, commentId, comment) => {
+       try {
+              const response = await axios.put(`${baseUrl}/comments/${commentId}`,
+                     { text: comment.text },
+                     { headers: { 'Content-Type': 'application/json' } })
+              return response.data;
+       } catch (error) {
+              throw new Error("Error updating comments text");
+       }
+};
+
