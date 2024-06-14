@@ -31,6 +31,7 @@ const CommentList = ({ user = { id: "", name: "Guest" } }) => {
 
   // function to like and unlike a comment
   const handleLikeToggle = async (commentId) => {
+    setError("");
     const updatedComments = [...comments];
     const commentIndex = updatedComments.findIndex((c) => c.id === commentId);
 
@@ -55,6 +56,7 @@ const CommentList = ({ user = { id: "", name: "Guest" } }) => {
 
   //function which updated the comment
   const handleUpdateComment = async (commentId, newText) => {
+    setError("");
     const updatedComments = [...comments];
     const commentIndex = updatedComments.findIndex((c) => c.id === commentId);
 
@@ -77,11 +79,14 @@ const CommentList = ({ user = { id: "", name: "Guest" } }) => {
         Comments
       </Typography>
       {loading && <Typography variant="body2">Loading comments...</Typography>}
-      {error && (
-        <Typography variant="body2" color="error">
-          {error}
-        </Typography>
-      )}
+      <div className="h-10">
+        {error && (
+          <Typography variant="body2" color="error">
+            {error}
+          </Typography>
+        )}
+      </div>
+
       {comments.map((comment) => (
         <CommentItem
           key={comment.id}

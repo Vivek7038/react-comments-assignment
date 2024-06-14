@@ -24,12 +24,11 @@ const CommentItem = ({
 
   const handleUpdate = () => {
     if (newCommentText.trim() === "") {
-      setUpdateError("Comment text cannot be empty.");
+      setIsEditing(false);
       return;
     }
     onUpdateComment(comment.id, newCommentText);
     setIsEditing(false);
-    setUpdateError("");
   };
 
   return (
