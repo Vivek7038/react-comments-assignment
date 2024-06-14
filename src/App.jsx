@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Container, Typography, Box, Button } from "@mui/material";
-import Login from "./components/Login";
 import { baseUrl } from "./constants/constants";
+import { Container, Typography, Box, Button } from "@mui/material";
+
+import Login from "./components/Login";
 import Comments from "./components/Comments";
+import Header from "./components/Header";
 function App() {
   const [user, setUser] = useState(null);
 
@@ -14,21 +16,7 @@ function App() {
     <Container>
       {user ? (
         <>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            mt={2}
-          >
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => setUser(null)}
-            >
-              Logout
-            </Button>
-            <Typography variant="h6">Welcome, {user.name}</Typography>
-          </Box>
+          <Header user={user} setUser={setUser} />
           <Comments user={user} />
         </>
       ) : (
